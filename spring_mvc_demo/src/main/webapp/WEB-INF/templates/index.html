@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<!--=============@RequestMapping注解=============-->
+<a th:href="@{/hello}">测试@RequestMapping注解所标识的位置</a><br/>
+<a th:href="@{/abc}">测试@RequestMapping注解的value属性</a></br/>
+<form th:action="@{/hello}" method="post">
+    <input type="submit" value="测试@RequestMapping注解的method属性">
+</form>
+<a th:href="@{/hello?username=admin}">测试@RequestMapping注解的params属性</a>
+<a th:href="@{/hello(username='admin')}">测试@RequestMapping注解的params属性</a><br>
+<a th:href="@{/aaa/test/ant}">测试@RequestMapping注解支持ant风格的路径</a><br>
+<a th:href="@{/test/rest/admin/1}">测试@RequestMapping注解的value属性中的占位符</a><br>
+<hr/>
+<!--=============SpringMVC获取请求参数=============-->
+<form th:action="@{/param/servletAPI}" method="post">
+    用户名：<input type="text" name="username"><br/>
+    密码：<input type="text" name="password"><br/>
+    <input type="submit" value="通过ServletAPI获取">
+</form>
+
+<form th:action="@{/param}" method="post">
+    用户名：<input type="text" name="username"><br/>
+    密码：<input type="text" name="password"><br/>
+    <input type="submit" value="通过控制器方法的形参获取请求参数">
+</form>
+
+<form th:action="@{/param/pojo}" method="post">
+    用户名：<input type="text" name="username"><br/>
+    密码：<input type="text" name="password"><br/>
+    <input type="submit" value="通过POJO获取请求参数">
+</form>
+<hr/>
+<!--=============域对象共享数据=============-->
+<a th:href="@{/testServletAPI}">测试通过ServletAPI向请求域对象中共享数据</a><br/>
+<a th:href="@{/testModelAndView}">测试通过ModelAndView向请求域对象中共享数据</a><br/>
+<a th:href="@{/testModel}">测试通过Model向请求域对象中共享数据</a><br/>
+<a th:href="@{/testMap}">测试通过Map向请求域对象中共享数据</a><br/>
+<a th:href="@{/testModelMap}">测试通过ModelMap向请求域对象中共享数据</a><br/>
+<a th:href="@{/testSession}">测试向session会话域共享数据</a><br/>
+<a th:href="@{/testApplication}">测试向application应用域共享数据</a><br/>
+<hr/>
+<!--=============SpringMVC视图=============-->
+<a th:href="@{/testThymeleafView}">测试SpringMVC的视图ThymeleafView</a><br/>
+<a th:href="@{/testForwardView}">测试SpringMVC的视图InternalResourceView</a><br/>
+<a th:href="@{/testRedirectView}">测试SpringMVC的视图RedirectView</a><br>
+</body>
+</html>

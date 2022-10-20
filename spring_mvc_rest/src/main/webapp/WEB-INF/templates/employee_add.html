@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工信息添加</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<form th:action="@{/employee}" method="post">
+    <table>
+        <tr>
+            <th colspan="2">员工添加</th>
+        </tr>
+        <tr>
+            <td>用户名</td>
+            <td>
+                <input type="text" name="lastName">
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td>
+                <input type="text" name="email">
+            </td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td>
+                <input type="radio" name="gender" value="1">男
+                <input type="radio" name="gender" value="0">女
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="添加员工信息">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

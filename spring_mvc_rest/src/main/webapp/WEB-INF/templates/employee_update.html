@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工信息修改</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<!--
+    HiddenHttpMethodFilter处理PUT和DELETE请求的条件：
+    a.当前请求的请求方式必须为POST
+    b.当前请求必须传输请求参数_method
+    满足以上条件，HiddenHttpMethodFilter 过滤器就会将当前请求的请求方式转换为请求参数_method的值
+    因此请求参数_method的值才是最终的请求方式
+-->
+<form th:action="@{/employee}" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="id" th:value="${employee.id}">
+    <table>
+        <tr>
+            <th colspan="2">员工信息修改</th>
+        </tr>
+        <tr>
+            <td>用户名</td>
+            <td>
+                <input type="text" name="lastName" th:value="${employee.lastName}">
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td>
+                <input type="text" name="email" th:value="${employee.email}">
+            </td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td>
+                <input type="radio" name="gender" value="1" th:field="${employee.gender}">男
+                <input type="radio" name="gender" value="0" th:field="${employee.gender}">女
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="修改员工信息">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<!--此时必须使用post请求方式，因为get请求没有请求体-->
+<form th:action="@{/testRequestBody}" method="post">
+    用户名：<input type="text" name="username"><br/>
+    密码：<input type="text" name="password"></br/>
+    <input type="submit" value="测试@RequestBody">
+</form>
+<div id="app">
+    <input type="button" value="测试SpringMVC处理ajax" @click="testAjax()"><br>
+    <input type="button" value="使用@RequestBody注解处理json格式的请求参数" @click="testRequestBodyJson()"><br/>
+    <input type="button" value="使用@RequestBody注解处理json格式的请求参数，将json格式的数据转换为map集合" @click="testRequestBodyMap()"><br/>
+    <input type="button" value="使用@RequestBody注解处理json格式的请求参数，将json格式的数据转换为实体类对象" @click="testRequestBodyPojo()"><br/>
+    <a th:href="@{/testNoUseResponseBody}">测试不使用@ResponseBody注解，此时会跳转到逻辑视图success所对应的页面</a><br/>
+    <input type="button" value="测试使用@ResponseBody注解响应浏览器数据，此时响应浏览器数据success" @click="testUseResponseBody()"><br>
+    <input type="button" value="使用@ResponseBody注解响应json格式的数据，响应浏览器list集合" @click="testResponseBodyJson()"><br>
+    <input type="button" value="使用@ResponseBody注解响应json格式的数据，响应浏览器map集合" @click="testResponseBodyJsonMap()"><br>
+    <input type="button" value="使用@ResponseBody注解响应json格式的数据，响应浏览器实体类对象" @click="testResponseBodyJsonPojo()"><br>
+    <a th:href="@{/test/down}">下载图片</a><br/>
+    <form th:action="@{/test/up}" method="post" enctype="multipart/form-data">
+        头像：<input type="file" name="photo"><br>
+        <input type="submit" value="上传">
+    </form>
+</div>
+<script type="text/javascript" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" th:src="@{/js/axios.min.js}"></script>
+<script type="text/javascript">
+    /*
+      axios({
+           url:"",//请求路径
+           method:"",//请求方式
+           //以name=value&name=value的方式发送的请求参数
+           //不管使用的请求方式是get或post，请求参数都会被拼接到请求地址后
+           //此种方式的请求参数可以通过request.getParameter()获取
+           params:{},
+           //以json格式发送的请求参数
+           //请求参数会被保存到请求报文的请求体传输到服务器
+           //此种方式的请求参数不可以通过request.getParameter()获取
+           data:{}
+       }).then(response=>{
+           console.log(response.data);
+       });
+     */
+    var vue = new Vue({
+        el: "#app",
+        methods: {
+            testAjax() {
+                axios.post(
+                    "test/ajax?id=1001",
+                    {username: "admin", password: "123456"}
+                ).then(response => {
+                    console.log(response.data);
+                });
+            },
+            testRequestBodyJson() {
+                axios.post(
+                    "testRequestBodyJson", {id: 1001, username: "admin", password: "123456", age: 23, gender: "男"}
+                ).then(response => {
+                    console.log(response.data);
+                });
+            },
+            testRequestBodyMap() {
+                axios.post(
+                    "testRequestBodyMap", {id: 1001, username: "admin", password: "123456", age: 23, gender: "男"}
+                ).then(response => {
+                    console.log(response.data);
+                });
+            },
+            testRequestBodyPojo() {
+                axios.post(
+                    "testRequestBodyPojo", {id: 1001, username: "admin", password: "123456", age: 23, gender: "男"}
+                ).then(response => {
+                    console.log(response.data);
+                });
+            },
+            testUseResponseBody() {
+                axios.post(
+                    "testUseResponseBody"
+                ).then(response => {
+                    console.log(response.data);
+                })
+            },
+            testResponseBodyJson() {
+                axios.post("testResponseBodyJson").then(response => {
+                    console.log(response.data);
+                });
+            },
+            testResponseBodyJsonMap() {
+                axios.post("testResponseBodyJsonMap").then(response => {
+                    console.log(response.data);
+                });
+            },
+            testResponseBodyJsonPojo() {
+                axios.post("testResponseBodyJsonPojo").then(response => {
+                    console.log(response.data);
+                });
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

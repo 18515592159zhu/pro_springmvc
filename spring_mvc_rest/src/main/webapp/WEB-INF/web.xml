@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!--
+        目前为止，SpringMVC中提供了两个过滤器：CharacterEncodingFilter和HiddenHttpMethodFilter
+        在web.xml中注册时，必须先注册CharacterEncodingFilter，再注册HiddenHttpMethodFilter
+        原因：
+        在 CharacterEncodingFilter 中通过 request.setCharacterEncoding(encoding) 方法设置字符集的
+        request.setCharacterEncoding(encoding) 方法要求前面不能有任何获取请求参数的操作
+        而 HiddenHttpMethodFilter 恰恰有一个获取请求方式的操作：String paramValue = request.getParameter(this.methodParam);
+    -->
+    <!--设置Spring的编码过滤器CharacterEncodingFilter-->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--
+        由于浏览器只支持发送GET和POST方式的请求，那么该如何发送PUT和DELETE的请求呢？
+        SpingMVC提供了HiddenHttpMethodFilter，帮助我们将POST请求转换为PUT或DELETE请求
+        HiddenHttpMethodFilter处理PUT和DELETE请求的条件：
+        a.当前请求的请求方式必须为POST
+        b.当前请求必须传输请求参数_method
+        满足以上条件，HiddenHttpMethodFilter 过滤器就会将当前请求的请求方式转换为请求参数_method的值
+        因此请求参数_method的值才是最终的请求方式
+    -->
+    <!--设置处理请求方式的过滤器HiddenHttpMethodFilter-->
+    <filter>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--设置SpringMVC的前端控制器DispatcherServlet-->
+    <servlet>
+        <servlet-name>SpringMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SpringMVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

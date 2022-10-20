@@ -1,0 +1,9 @@
+# 创建表
+CREATE TABLE `t_emp` (
+`emp_id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+`emp_name` VARCHAR ( 20 ) DEFAULT NULL,
+`age` INT ( 11 ) DEFAULT NULL,
+`sex` CHAR ( 1 ) DEFAULT NULL,
+`email` VARCHAR ( 50 ) DEFAULT NULL,
+PRIMARY KEY ( `emp_id` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8

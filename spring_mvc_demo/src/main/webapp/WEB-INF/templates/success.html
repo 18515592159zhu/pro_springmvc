@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成功页面</title>
+</head>
+<body>
+<h2>成功</h2>
+<p th:text="${testRequestScope}"></p>
+<p th:text="${testModeAndViewRequestScope}"></p>
+<p th:text="${testModelRequestScope}"></p>
+<p th:text="${testMapRequestScope}"></p>
+<p th:text="${testModelMapRequestScope}"></p>
+<p th:text="${session.testSessionScope}"></p>
+<p th:text="${application.testApplicationScope}"></p>
+</body>
+</html>
